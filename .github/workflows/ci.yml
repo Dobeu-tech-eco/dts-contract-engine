@@ -106,3 +106,16 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 14
+
+  # Pilot of the shared portfolio CI baseline (Dobeu-tech-eco/standards).
+  # Runs ALONGSIDE verify/e2e, not instead of them — those stay the control
+  # group. If baseline and verify disagree, the shared workflow is wrong, not
+  # this repo. No overrides: this repo's package.json already exposes the
+  # test/lint/typecheck scripts the baseline's node defaults look for, so a
+  # clean default run is the informative test.
+  #
+  # Pinned by full commit SHA (mutable tags are not allowed); `# v1` records
+  # which label that SHA came from. Re-resolve with:
+  #   git ls-remote https://github.com/Dobeu-tech-eco/standards 'v1^{}'
+  baseline:
+    uses: Dobeu-tech-eco/standards/.github/workflows/ci-baseline.yml@8e1da2b4206a364858edcf4c7705478563d33582 # v1
